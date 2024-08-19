@@ -2,7 +2,7 @@
        0        0 80200000     1 . = 0x80200000
 80200000        0        0     1 __kernel_base = .
 80200000 80200000      a1e     4 .text
-80200000 80200000        e     2         /tmp/kernel-e08076.o:(.text.boot)
+80200000 80200000        e     2         /tmp/kernel-31ae1d.o:(.text.boot)
 80200000 80200000        0     1                 
 80200000 80200000        0     1                 
 80200000 80200000        0     1                 
@@ -10,7 +10,7 @@
 80200000 80200000        e     1                 boot
 8020000e 8020000e        0     1                 
 8020000e 8020000e        0     1                 
-80200010 80200010      78a     4         /tmp/kernel-e08076.o:(.text)
+80200010 80200010      78a     4         /tmp/kernel-31ae1d.o:(.text)
 80200010 80200010        0     1                 
 80200010 80200010        0     1                 
 80200010 80200010        0     1                 
@@ -363,7 +363,7 @@
 8020079a 8020079a        0     1                 
 8020079a 8020079a        0     1                 
 8020079a 8020079a        0     1                 
-8020079c 8020079c      282     4         /tmp/common-ae15ea.o:(.text)
+8020079c 8020079c      282     4         /tmp/common-23540d.o:(.text)
 8020079c 8020079c        0     1                 
 8020079c 8020079c        0     1                 
 8020079c 8020079c        0     1                 
@@ -531,73 +531,77 @@
 80200a1e 80200a1e        0     1                 
 80200a20 80200a20      109     4 .rodata
 80200a20 80200a20      109     1         <internal>:(.rodata)
-80200b2c 80200b2c        4     4 .sdata
-80200b2c 80200b2c        4     4         /tmp/kernel-e08076.o:(.sdata)
-80200b2c 80200b2c        4     1                 alloc_pages.next_paddr
-80200b30 80200b30    10090     4 .bss
-80200b30 80200b30        0     1         __bss = .
-80200b30 80200b30       10     4         /tmp/kernel-e08076.o:(.sbss)
-80200b30 80200b30        4     1                 idle_proc
-80200b34 80200b34        4     1                 current_proc
-80200b38 80200b38        4     1                 proc_a
-80200b3c 80200b3c        4     1                 proc_b
-80200b40 80200b40    10080     4         /tmp/kernel-e08076.o:(.bss)
-80200b40 80200b40    10080     1                 procs
-80210bc0 80210bc0        0     1         __bss_end = .
-80210bc0 80210bc0        0     1 . = ALIGN ( 4 )
-80210bc0 80210bc0    20000     1 . += 128 * 1024
-80230bc0 80230bc0        0     1 __stack_top = .
-80230bc0 80230bc0      440     1 . = ALIGN ( 4096 )
-80231000 80231000        0     1 __free_ram = .
-80231000 80231000  4000000     1 . += 64 * 1024 * 1024
-84231000 84231000        0     1 __free_ram_end = .
+80200b2c 80200b2c    102c0     4 .data
+80200b2c 80200b2c    102c0     1         shell.bin.o:(.data)
+80200b2c 80200b2c        0     1                 _binary_shell_bin_start
+80210dec 80210dec        0     1                 _binary_shell_bin_end
+80210dec 80210dec        4     4 .sdata
+80210dec 80210dec        4     4         /tmp/kernel-31ae1d.o:(.sdata)
+80210dec 80210dec        4     1                 alloc_pages.next_paddr
+80210df0 80210df0    10090     4 .bss
+80210df0 80210df0        0     1         __bss = .
+80210df0 80210df0       10     4         /tmp/kernel-31ae1d.o:(.sbss)
+80210df0 80210df0        4     1                 idle_proc
+80210df4 80210df4        4     1                 current_proc
+80210df8 80210df8        4     1                 proc_a
+80210dfc 80210dfc        4     1                 proc_b
+80210e00 80210e00    10080     4         /tmp/kernel-31ae1d.o:(.bss)
+80210e00 80210e00    10080     1                 procs
+80220e80 80220e80        0     1         __bss_end = .
+80220e80 80220e80        0     1 . = ALIGN ( 4 )
+80220e80 80220e80    20000     1 . += 128 * 1024
+80240e80 80240e80        0     1 __stack_top = .
+80240e80 80240e80      180     1 . = ALIGN ( 4096 )
+80241000 80241000        0     1 __free_ram = .
+80241000 80241000  4000000     1 . += 64 * 1024 * 1024
+84241000 84241000        0     1 __free_ram_end = .
        0        0      5fd     1 .debug_loclists
-       0        0      3c4     1         /tmp/kernel-e08076.o:(.debug_loclists)
+       0        0      3c4     1         /tmp/kernel-31ae1d.o:(.debug_loclists)
        c        c        0     1                 
-     3c4      3c4      239     1         /tmp/common-ae15ea.o:(.debug_loclists)
+     3c4      3c4      239     1         /tmp/common-23540d.o:(.debug_loclists)
      3d0      3d0        0     1                 
        0        0      392     1 .debug_abbrev
-       0        0      28d     1         /tmp/kernel-e08076.o:(.debug_abbrev)
-     28d      28d      105     1         /tmp/common-ae15ea.o:(.debug_abbrev)
+       0        0      28d     1         /tmp/kernel-31ae1d.o:(.debug_abbrev)
+     28d      28d      105     1         /tmp/common-23540d.o:(.debug_abbrev)
        0        0      905     1 .debug_info
-       0        0      6ed     1         /tmp/kernel-e08076.o:(.debug_info)
-     6ed      6ed      218     1         /tmp/common-ae15ea.o:(.debug_info)
+       0        0      6ed     1         /tmp/kernel-31ae1d.o:(.debug_info)
+     6ed      6ed      218     1         /tmp/common-23540d.o:(.debug_info)
        0        0       66     1 .debug_rnglists
-       0        0       4b     1         /tmp/kernel-e08076.o:(.debug_rnglists)
+       0        0       4b     1         /tmp/kernel-31ae1d.o:(.debug_rnglists)
        c        c        0     1                 
-      4b       4b       1b     1         /tmp/common-ae15ea.o:(.debug_rnglists)
+      4b       4b       1b     1         /tmp/common-23540d.o:(.debug_rnglists)
       57       57        0     1                 
        0        0      238     1 .debug_str_offsets
-       0        0      1a8     1         /tmp/kernel-e08076.o:(.debug_str_offsets)
+       0        0      1a8     1         /tmp/kernel-31ae1d.o:(.debug_str_offsets)
        8        8        0     1                 
-     1a8      1a8       90     1         /tmp/common-ae15ea.o:(.debug_str_offsets)
+     1a8      1a8       90     1         /tmp/common-23540d.o:(.debug_str_offsets)
      1b0      1b0        0     1                 
        0        0      30f     1 .debug_str
        0        0      30f     1         <internal>:(.debug_str)
        0        0      134     1 .debug_addr
-       0        0       d8     1         /tmp/kernel-e08076.o:(.debug_addr)
+       0        0       d8     1         /tmp/kernel-31ae1d.o:(.debug_addr)
        8        8        0     1                 
-      d8       d8       5c     1         /tmp/common-ae15ea.o:(.debug_addr)
+      d8       d8       5c     1         /tmp/common-23540d.o:(.debug_addr)
       e0       e0        0     1                 
        0        0       37     1 .comment
        0        0       37     1         <internal>:(.comment)
        0        0       2b     1 .riscv.attributes
-       0        0       2b     1         /tmp/kernel-e08076.o:(.riscv.attributes)
+       0        0       2b     1         /tmp/kernel-31ae1d.o:(.riscv.attributes)
        0        0      1c4     4 .debug_frame
-       0        0      140     4         /tmp/kernel-e08076.o:(.debug_frame)
+       0        0      140     4         /tmp/kernel-31ae1d.o:(.debug_frame)
        0        0        0     1                 
-     140      140       84     4         /tmp/common-ae15ea.o:(.debug_frame)
+     140      140       84     4         /tmp/common-23540d.o:(.debug_frame)
      140      140        0     1                 
        0        0      cba     1 .debug_line
-       0        0      868     1         /tmp/kernel-e08076.o:(.debug_line)
+       0        0      868     1         /tmp/kernel-31ae1d.o:(.debug_line)
        0        0        0     1                 .Lline_table_start0
-     868      868      452     1         /tmp/common-ae15ea.o:(.debug_line)
+     868      868      452     1         /tmp/common-23540d.o:(.debug_line)
      868      868        0     1                 .Lline_table_start0
        0        0       3b     1 .debug_line_str
        0        0       3b     1         <internal>:(.debug_line_str)
-       0        0     2b10     4 .symtab
-       0        0     2b10     4         <internal>:(.symtab)
-       0        0       dd     1 .shstrtab
-       0        0       dd     1         <internal>:(.shstrtab)
-       0        0      172     1 .strtab
-       0        0      172     1         <internal>:(.strtab)
+       0        0     2b40     4 .symtab
+       0        0     2b40     4         <internal>:(.symtab)
+       0        0       e3     1 .shstrtab
+       0        0       e3     1         <internal>:(.shstrtab)
+       0        0      1b7     1 .strtab
+       0        0      1b7     1         <internal>:(.strtab)
