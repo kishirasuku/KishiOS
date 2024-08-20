@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -xue^
+set -xue
 
 # QEMU file path
 QEMU=qemu-system-riscv32
@@ -21,5 +21,5 @@ $OBJCOPY -Ibinary -Oelf32-littleriscv shell.bin shell.bin.o
 $CC $CFLAGS -Wl,-Tkernel.ld -Wl,-Map=kernel.map -o kernel.elf kernel.c common.c shell.bin.o
 
 # QEMUを起動
-$QEMU -machine virt -bios default  --no-reboot -kernel kernel.elf
+$QEMU -machine virt -bios default -serial stdio --no-reboot -kernel kernel.elf
 

@@ -8,6 +8,7 @@ typedef uint32_t size_t;
 extern char __bss[], __bss_end[], __stack_top[];
 extern char __free_ram[], __free_ram_end[];
 extern char __kernel_base[];
+extern char _binary_shell_bin_start[], _binary_shell_bin_size[];
 
 struct process procs[PROCS_MAX];
 
@@ -38,6 +39,11 @@ struct sbiret sbi_call(long arg0, long arg1, long arg2, long arg3, long arg4,
 
 void putchar(char ch) {
     sbi_call(ch, 0, 0, 0, 0, 0, 0, 1 /* Console Putchar */);
+}
+
+long getchar(void) {
+    struct sbiret ret = sbi_call(0, 0, 0, 0, 0, 0, 0, 2);
+    return ret.error;
 }
 
 paddr_t alloc_pages(uint32_t n) {
@@ -144,7 +150,17 @@ void map_page(uint32_t *table1, uint32_t vaddr, paddr_t paddr, uint32_t flags) {
     table0[vpn0] = ((paddr / PAGE_SIZE) << 10) | flags | PAGE_V;
 }
 
-struct process *create_process(uint32_t pc) {
+__attribute__((naked)) void user_entry(void) {
+    __asm__ __volatile__(
+        "csrw sepc, %[sepc]\n"
+        "csrw sstatus, %[sstatus]\n"
+        "sret\n"
+        :
+        : [sepc] "r" (USER_BASE),
+          [sstatus] "r" (SSTATUS_SPIE)
+    );
+}
+struct process *create_process(const void *image,size_t image_size) {
     // 空いているプロセス管理構造体を探す
     struct process *proc = NULL;
     int i;
@@ -171,7 +187,7 @@ struct process *create_process(uint32_t pc) {
     *--sp = 0;                      // s2
     *--sp = 0;                      // s1
     *--sp = 0;                      // s0
-    *--sp = (uint32_t) pc;          // ra
+    *--sp = (uint32_t) user_entry;          // ra
 
     uint32_t *page_table = (uint32_t *) alloc_pages(1);
 
@@ -179,6 +195,14 @@ struct process *create_process(uint32_t pc) {
     for (paddr_t paddr = (paddr_t) __kernel_base;
          paddr < (paddr_t) __free_ram_end; paddr += PAGE_SIZE)
         map_page(page_table, paddr, paddr, PAGE_R | PAGE_W | PAGE_X);
+
+    // ユーザーのページをマッピングする
+    for (uint32_t off = 0; off < image_size; off += PAGE_SIZE) {
+        paddr_t page = alloc_pages(1);
+        memcpy((void *) page, image + off, PAGE_SIZE);
+        map_page(page_table, USER_BASE + off, page,
+                 PAGE_U | PAGE_R | PAGE_W | PAGE_X);
+    }
 
     // 各フィールドを初期化
     proc->pid = i + 1;
@@ -276,12 +300,45 @@ void kernel_entry(void) {
     );
 }
 
+void handle_syscall(struct trap_frame *f) {
+    switch (f->a3) {
+        case SYS_EXIT:
+            printf("process %d exited\n", current_proc->pid);
+            current_proc->state = PROC_EXITED;
+            yield();
+            PANIC("unreachable");
+        case SYS_GETCHAR:
+            while (1) {
+                long ch = getchar();
+                if (ch >= 0) {
+                    f->a0 = ch;
+                    break;
+                }
+
+                yield();
+            }
+            break;
+        case SYS_PUTCHAR:
+            putchar(f->a0);
+            break;
+        default:
+            PANIC("unexpected syscall a3=%x\n", f->a3);
+    }
+}
+
 void handle_trap(struct trap_frame *f) {
     uint32_t scause = READ_CSR(scause);
     uint32_t stval = READ_CSR(stval);
     uint32_t user_pc = READ_CSR(sepc);
 
-    PANIC("unexpected trap scause=%x, stval=%x, sepc=%x\n", scause, stval, user_pc);
+    if (scause == SCAUSE_ECALL) {
+        handle_syscall(f);
+        user_pc += 4;
+    } else {
+        PANIC("unexpected trap scause=%x, stval=%x, sepc=%x\n", scause, stval, user_pc);
+    }
+
+    WRITE_CSR(sepc, user_pc);
 }
 
 void proc_a_entry(void) {
@@ -308,18 +365,19 @@ void proc_b_entry(void) {
 }
 
 
+
 void kernel_main(void) {
     memset(__bss, 0, (size_t)__bss_end - (size_t)__bss);
 
     WRITE_CSR(stvec, (uint32_t) kernel_entry);
 
-    idle_proc = create_process((uint32_t) NULL);
+    idle_proc = create_process(NULL,0);
     idle_proc->pid = -1; // idle
     current_proc = idle_proc;
 
-    proc_a = create_process((uint32_t) proc_a_entry);
-    proc_b = create_process((uint32_t) proc_b_entry);
-    proc_a_entry();
+    create_process(_binary_shell_bin_start, (size_t) _binary_shell_bin_size);
+
+    yield();
 
     PANIC("switched to idle process");
 }
