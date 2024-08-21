@@ -34,6 +34,10 @@ int getchar(void) {
     return syscall(SYS_GETCHAR, 0, 0, 0);
 }
 
+void getSbiVersion(void) {
+    syscall(SYS_GETSBIVERSION, 0, 0, 0);
+}
+
 __attribute__((noreturn)) void exit(void) {
     syscall(SYS_EXIT, 0, 0, 0);
     for (;;); // 念のため

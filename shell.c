@@ -24,6 +24,8 @@ prompt:
             printf("Hello world from shell!\n");
         else if (strcmp(cmdline, "exit") == 0)
             exit();
+        else if (strcmp(cmdline, "sbi") == 0)
+            getSbiVersion();
         else
             printf("unknown command: %s\n", cmdline);
     }

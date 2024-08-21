@@ -46,6 +46,16 @@ long getchar(void) {
     return ret.error;
 }
 
+ 
+void printSbiVersion(void) {
+    struct sbiret ret = sbi_call(0, 0, 0, 0, 0, 0, 0, 0x10);
+
+    int majorVersion = (ret.value >> 24);
+    int minorVersion = (ret.value & 0xff);
+    
+    printf("SBI Version %d.%d\n",majorVersion,minorVersion);
+}
+
 paddr_t alloc_pages(uint32_t n) {
     static paddr_t next_paddr = (paddr_t) __free_ram;
     paddr_t paddr = next_paddr;
@@ -302,6 +312,9 @@ void kernel_entry(void) {
 
 void handle_syscall(struct trap_frame *f) {
     switch (f->a3) {
+        case SYS_GETSBIVERSION:
+            printSbiVersion();
+            break;
         case SYS_EXIT:
             printf("process %d exited\n", current_proc->pid);
             current_proc->state = PROC_EXITED;
@@ -370,6 +383,7 @@ void kernel_main(void) {
     memset(__bss, 0, (size_t)__bss_end - (size_t)__bss);
 
     WRITE_CSR(stvec, (uint32_t) kernel_entry);
+    printSbiVersion();
 
     idle_proc = create_process(NULL,0);
     idle_proc->pid = -1; // idle
