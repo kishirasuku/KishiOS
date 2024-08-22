@@ -18,11 +18,6 @@
 #define USER_BASE 0x1000000
 
 
-struct sbiret {
-    long error;
-    long value;
-};
-
 struct process {
     int pid;             // プロセスID
     int state;           // プロセスの状態

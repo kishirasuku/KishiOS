@@ -16,12 +16,12 @@ DELETEFILE = shell.bin shell.bin.o shell.elf
 run:
 	set -xue
 	
-	$(CC) $(CFLAGS) -Wl,-T ./ld/user.ld -Wl,-Map=./map/shell.map -o shell.elf shell.c user.c common.c
+	$(CC) $(CFLAGS) -Wl,-T ./ld/user.ld -Wl,-Map=./map/shell.map -o shell.elf shell.c user.c common.c 
 	$(OBJCOPY) --set-section-flags .bss=alloc,contents -O binary shell.elf shell.bin
 	$(OBJCOPY) -Ibinary -Oelf32-littleriscv shell.bin shell.bin.o
 
 	# カーネルをビルド
-	$(CC) $(CFLAGS) -Wl,-T ./ld/kernel.ld -Wl,-Map=./map/kernel.map -o kernel.elf kernel.c common.c shell.bin.o
+	$(CC) $(CFLAGS) -Wl,-T ./ld/kernel.ld -Wl,-Map=./map/kernel.map -o kernel.elf kernel.c common.c shell.bin.o ./sbicalls/sbicall.c
 
 	rm $(DELETEFILE)
 

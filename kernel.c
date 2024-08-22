@@ -1,4 +1,5 @@
 #include "kernel.h"
+#include "./sbicalls/sbicall.h"
 
 typedef unsigned char uint8_t;
 typedef unsigned int uint32_t;
@@ -12,49 +13,10 @@ extern char _binary_shell_bin_start[], _binary_shell_bin_size[];
 
 struct process procs[PROCS_MAX];
 
-struct process *proc_a;
-struct process *proc_b;
 struct process *current_proc; // 現在実行中のプロセス
 struct process *idle_proc;    // アイドルプロセス
 
 
-struct sbiret sbi_call(long arg0, long arg1, long arg2, long arg3, long arg4,
-                       long arg5, long fid, long eid) {
-    register long a0 __asm__("a0") = arg0;
-    register long a1 __asm__("a1") = arg1;
-    register long a2 __asm__("a2") = arg2;
-    register long a3 __asm__("a3") = arg3;
-    register long a4 __asm__("a4") = arg4;
-    register long a5 __asm__("a5") = arg5;
-    register long a6 __asm__("a6") = fid;
-    register long a7 __asm__("a7") = eid;
-
-    __asm__ __volatile__("ecall"
-                         : "=r"(a0), "=r"(a1)
-                         : "r"(a0), "r"(a1), "r"(a2), "r"(a3), "r"(a4), "r"(a5),
-                           "r"(a6), "r"(a7)
-                         );
-    return (struct sbiret){.error = a0, .value = a1};
-}
-
-void putchar(char ch) {
-    sbi_call(ch, 0, 0, 0, 0, 0, 0, 1 /* Console Putchar */);
-}
-
-long getchar(void) {
-    struct sbiret ret = sbi_call(0, 0, 0, 0, 0, 0, 0, 2);
-    return ret.error;
-}
-
- 
-void printSbiVersion(void) {
-    struct sbiret ret = sbi_call(0, 0, 0, 0, 0, 0, 0, 0x10);
-
-    int majorVersion = (ret.value >> 24);
-    int minorVersion = (ret.value & 0xff);
-    
-    printf("SBI Version %d.%d\n",majorVersion,minorVersion);
-}
 
 paddr_t alloc_pages(uint32_t n) {
     static paddr_t next_paddr = (paddr_t) __free_ram;
@@ -353,31 +315,6 @@ void handle_trap(struct trap_frame *f) {
 
     WRITE_CSR(sepc, user_pc);
 }
-
-void proc_a_entry(void) {
-    printf("starting process A\n");
-    
-    while (1) {
-        printf("A");
-        yield();
-
-        for (int i = 0; i < 30000000; i++)
-            __asm__ __volatile__("nop");
-    }
-}
-
-void proc_b_entry(void) {
-    printf("starting process B\n");
-    while (1) {
-        printf("B");
-        yield();
-
-        for (int i = 0; i < 30000000; i++)
-            __asm__ __volatile__("nop");
-    }
-}
-
-
 
 void kernel_main(void) {
     memset(__bss, 0, (size_t)__bss_end - (size_t)__bss);
