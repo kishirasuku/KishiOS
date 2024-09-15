@@ -16,7 +16,7 @@ DELETEFILE = shell.bin shell.bin.o shell.elf
 run:
 	set -xue
 	
-	$(CC) $(CFLAGS) -Wl,-T ./ld/user.ld -Wl,-Map=./map/shell.map -o shell.elf shell.c user.c common.c 
+	$(CC) $(CFLAGS) -Wl,-T ./ld/user.ld -Wl,-Map=./map/shell.map -o shell.elf shell.c user.c common.c ./libs/string.c
 	$(OBJCOPY) --set-section-flags .bss=alloc,contents -O binary shell.elf shell.bin
 	$(OBJCOPY) -Ibinary -Oelf32-littleriscv shell.bin shell.bin.o
 
@@ -26,4 +26,4 @@ run:
 	rm $(DELETEFILE)
 
 	# QEMUを起動
-	$(QEMU) -machine virt -bios default -serial stdio --no-reboot -kernel kernel.elf
+	$(QEMU) -machine virt -bios default -nographic -serial mon:stdio --no-reboot -kernel kernel.elf

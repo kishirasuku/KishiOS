@@ -1,7 +1,7 @@
      VMA      LMA     Size Align Out     In      Symbol
        0        0  1000000     1 . = 0x1000000
- 1000000  1000000      412     4 .text
- 1000000  1000000       1a     2         /tmp/user-6479b3.o:(.text.start)
+ 1000000  1000000      414     4 .text
+ 1000000  1000000       1a     2         /tmp/user-9b3f4e.o:(.text.start)
  1000000  1000000        0     1                 
  1000000  1000000        0     1                 
  1000000  1000000        0     1                 
@@ -9,7 +9,7 @@
  1000000  1000000       1a     1                 start
  100001a  100001a        0     1                 
  100001a  100001a        0     1                 
- 100001c  100001c      12a     4         /tmp/shell-f4bff1.o:(.text)
+ 100001c  100001c      12a     4         /tmp/shell-47bd65.o:(.text)
  100001c  100001c        0     1                 
  100001c  100001c        0     1                 
  100001c  100001c        0     1                 
@@ -61,7 +61,7 @@
  1000146  1000146        0     1                 
  1000146  1000146        0     1                 
  1000146  1000146        0     1                 
- 1000148  1000148       46     4         /tmp/user-6479b3.o:(.text)
+ 1000148  1000148       46     4         /tmp/user-9b3f4e.o:(.text)
  1000148  1000148        0     1                 
  1000148  1000148        0     1                 
  1000148  1000148        0     1                 
@@ -106,7 +106,7 @@
  100018c  100018c        0     1                 
  100018e  100018e        0     1                 
  100018e  100018e        0     1                 
- 1000190  1000190      282     4         /tmp/common-16742d.o:(.text)
+ 1000190  1000190      226     4         /tmp/common-d79723.o:(.text)
  1000190  1000190        0     1                 
  1000190  1000190        0     1                 
  1000190  1000190        0     1                 
@@ -235,43 +235,44 @@
  10003b4  10003b4        0     1                 
  10003b6  10003b6        0     1                 
  10003b6  10003b6        0     1                 
- 10003b6  10003b6        0     1                 
- 10003b6  10003b6        0     1                 
- 10003b6  10003b6        0     1                 
- 10003b6  10003b6        0     1                 
- 10003b6  10003b6       24     1                 strcpy
- 10003bc  10003bc        0     1                 
- 10003c0  10003c0        0     1                 
+ 10003b8  10003b8       5c     4         /tmp/string-f99a32.o:(.text)
+ 10003b8  10003b8        0     1                 
+ 10003b8  10003b8        0     1                 
+ 10003b8  10003b8        0     1                 
+ 10003b8  10003b8        0     1                 
+ 10003b8  10003b8       24     1                 strcpy
+ 10003be  10003be        0     1                 
  10003c2  10003c2        0     1                 
- 10003c6  10003c6        0     1                 
- 10003ca  10003ca        0     1                 
- 10003ce  10003ce        0     1                 
+ 10003c4  10003c4        0     1                 
+ 10003c8  10003c8        0     1                 
+ 10003cc  10003cc        0     1                 
  10003d0  10003d0        0     1                 
  10003d2  10003d2        0     1                 
  10003d4  10003d4        0     1                 
- 10003d8  10003d8        0     1                 
+ 10003d6  10003d6        0     1                 
  10003da  10003da        0     1                 
- 10003da  10003da        0     1                 
- 10003da  10003da        0     1                 
- 10003da  10003da        0     1                 
- 10003da  10003da        0     1                 
- 10003da  10003da        0     1                 
- 10003da  10003da       38     1                 strcmp
- 10003de  10003de        0     1                 
+ 10003dc  10003dc        0     1                 
+ 10003dc  10003dc        0     1                 
+ 10003dc  10003dc        0     1                 
+ 10003dc  10003dc        0     1                 
+ 10003dc  10003dc        0     1                 
+ 10003dc  10003dc        0     1                 
+ 10003dc  10003dc       38     1                 strcmp
  10003e0  10003e0        0     1                 
  10003e2  10003e2        0     1                 
- 10003e6  10003e6        0     1                 
- 10003f4  10003f4        0     1                 
- 10003f8  10003f8        0     1                 
- 10003fc  10003fc        0     1                 
+ 10003e4  10003e4        0     1                 
+ 10003e8  10003e8        0     1                 
+ 10003f6  10003f6        0     1                 
+ 10003fa  10003fa        0     1                 
  10003fe  10003fe        0     1                 
- 1000402  1000402        0     1                 
+ 1000400  1000400        0     1                 
  1000404  1000404        0     1                 
- 1000408  1000408        0     1                 
- 100040c  100040c        0     1                 
- 1000410  1000410        0     1                 
+ 1000406  1000406        0     1                 
+ 100040a  100040a        0     1                 
+ 100040e  100040e        0     1                 
  1000412  1000412        0     1                 
- 1000412  1000412        0     1                 
+ 1000414  1000414        0     1                 
+ 1000414  1000414        0     1                 
  1000414  1000414       6a     4 .rodata
  1000414  1000414       6a     1         <internal>:(.rodata)
  1000480  1000480    10000     4 .bss
@@ -279,67 +280,79 @@
  1000480  1000480    10000     1         . += 64 * 1024
  1010480  1010480        0     1         __stack_top = .
  1010480  1010480        0     1         
-       0        0      345     1 .debug_loclists
-       0        0       33     1         /tmp/shell-f4bff1.o:(.debug_loclists)
+       0        0      33f     1 .debug_loclists
+       0        0       33     1         /tmp/shell-47bd65.o:(.debug_loclists)
        c        c        0     1                 
-      33       33       d9     1         /tmp/user-6479b3.o:(.debug_loclists)
+      33       33       d9     1         /tmp/user-9b3f4e.o:(.debug_loclists)
       3f       3f        0     1                 
-     10c      10c      239     1         /tmp/common-16742d.o:(.debug_loclists)
+     10c      10c      1e4     1         /tmp/common-d79723.o:(.debug_loclists)
      118      118        0     1                 
-       0        0      335     1 .debug_abbrev
-       0        0      114     1         /tmp/shell-f4bff1.o:(.debug_abbrev)
-     114      114      11c     1         /tmp/user-6479b3.o:(.debug_abbrev)
-     230      230      105     1         /tmp/common-16742d.o:(.debug_abbrev)
-       0        0      52d     1 .debug_info
-       0        0      119     1         /tmp/shell-f4bff1.o:(.debug_info)
-     119      119      1fc     1         /tmp/user-6479b3.o:(.debug_info)
-     315      315      218     1         /tmp/common-16742d.o:(.debug_info)
+     2f0      2f0       4f     1         /tmp/string-f99a32.o:(.debug_loclists)
+     2fc      2fc        0     1                 
+       0        0      3af     1 .debug_abbrev
+       0        0      114     1         /tmp/shell-47bd65.o:(.debug_abbrev)
+     114      114      11c     1         /tmp/user-9b3f4e.o:(.debug_abbrev)
+     230      230      105     1         /tmp/common-d79723.o:(.debug_abbrev)
+     335      335       7a     1         /tmp/string-f99a32.o:(.debug_abbrev)
+       0        0      56b     1 .debug_info
+       0        0      119     1         /tmp/shell-47bd65.o:(.debug_info)
+     119      119      1fc     1         /tmp/user-9b3f4e.o:(.debug_info)
+     315      315      1c0     1         /tmp/common-d79723.o:(.debug_info)
+     4d5      4d5       96     1         /tmp/string-f99a32.o:(.debug_info)
        0        0       4c     1 .debug_rnglists
-       0        0       1a     1         /tmp/shell-f4bff1.o:(.debug_rnglists)
+       0        0       1a     1         /tmp/shell-47bd65.o:(.debug_rnglists)
        c        c        0     1                 
-      1a       1a       17     1         /tmp/user-6479b3.o:(.debug_rnglists)
+      1a       1a       17     1         /tmp/user-9b3f4e.o:(.debug_rnglists)
       26       26        0     1                 
-      31       31       1b     1         /tmp/common-16742d.o:(.debug_rnglists)
+      31       31       1b     1         /tmp/common-d79723.o:(.debug_rnglists)
       3d       3d        0     1                 
-       0        0      134     1 .debug_str_offsets
-       0        0       4c     1         /tmp/shell-f4bff1.o:(.debug_str_offsets)
+       0        0      160     1 .debug_str_offsets
+       0        0       4c     1         /tmp/shell-47bd65.o:(.debug_str_offsets)
        8        8        0     1                 
-      4c       4c       58     1         /tmp/user-6479b3.o:(.debug_str_offsets)
+      4c       4c       58     1         /tmp/user-9b3f4e.o:(.debug_str_offsets)
       54       54        0     1                 
-      a4       a4       90     1         /tmp/common-16742d.o:(.debug_str_offsets)
+      a4       a4       80     1         /tmp/common-d79723.o:(.debug_str_offsets)
       ac       ac        0     1                 
-       0        0      178     1 .debug_str
-       0        0      178     1         <internal>:(.debug_str)
-       0        0       c4     1 .debug_addr
-       0        0       48     1         /tmp/shell-f4bff1.o:(.debug_addr)
+     124      124       3c     1         /tmp/string-f99a32.o:(.debug_str_offsets)
+     12c      12c        0     1                 
+       0        0      186     1 .debug_str
+       0        0      186     1         <internal>:(.debug_str)
+       0        0       cc     1 .debug_addr
+       0        0       48     1         /tmp/shell-47bd65.o:(.debug_addr)
        8        8        0     1                 
-      48       48       20     1         /tmp/user-6479b3.o:(.debug_addr)
+      48       48       20     1         /tmp/user-9b3f4e.o:(.debug_addr)
       50       50        0     1                 
-      68       68       5c     1         /tmp/common-16742d.o:(.debug_addr)
+      68       68       54     1         /tmp/common-d79723.o:(.debug_addr)
       70       70        0     1                 
+      bc       bc       10     1         /tmp/string-f99a32.o:(.debug_addr)
+      c4       c4        0     1                 
        0        0       37     1 .comment
        0        0       37     1         <internal>:(.comment)
        0        0       2b     1 .riscv.attributes
-       0        0       2b     1         /tmp/shell-f4bff1.o:(.riscv.attributes)
-       0        0      13c     4 .debug_frame
-       0        0       44     4         /tmp/shell-f4bff1.o:(.debug_frame)
+       0        0       2b     1         /tmp/shell-47bd65.o:(.riscv.attributes)
+       0        0      150     4 .debug_frame
+       0        0       44     4         /tmp/shell-47bd65.o:(.debug_frame)
        0        0        0     1                 
-      44       44       74     4         /tmp/user-6479b3.o:(.debug_frame)
+      44       44       74     4         /tmp/user-9b3f4e.o:(.debug_frame)
       44       44        0     1                 
-      b8       b8       84     4         /tmp/common-16742d.o:(.debug_frame)
+      b8       b8       64     4         /tmp/common-d79723.o:(.debug_frame)
       b8       b8        0     1                 
-       0        0      67f     1 .debug_line
-       0        0      150     1         /tmp/shell-f4bff1.o:(.debug_line)
+     11c      11c       34     4         /tmp/string-f99a32.o:(.debug_frame)
+     11c      11c        0     1                 
+       0        0      6f4     1 .debug_line
+       0        0      169     1         /tmp/shell-47bd65.o:(.debug_line)
        0        0        0     1                 .Lline_table_start0
-     150      150       dd     1         /tmp/user-6479b3.o:(.debug_line)
-     150      150        0     1                 .Lline_table_start0
-     22d      22d      452     1         /tmp/common-16742d.o:(.debug_line)
-     22d      22d        0     1                 .Lline_table_start0
-       0        0       3f     1 .debug_line_str
-       0        0       3f     1         <internal>:(.debug_line_str)
-       0        0     1690     4 .symtab
-       0        0     1690     4         <internal>:(.symtab)
+     169      169       dd     1         /tmp/user-9b3f4e.o:(.debug_line)
+     169      169        0     1                 .Lline_table_start0
+     246      246      371     1         /tmp/common-d79723.o:(.debug_line)
+     246      246        0     1                 .Lline_table_start0
+     5b7      5b7      13d     1         /tmp/string-f99a32.o:(.debug_line)
+     5b7      5b7        0     1                 .Lline_table_start0
+       0        0       6e     1 .debug_line_str
+       0        0       6e     1         <internal>:(.debug_line_str)
+       0        0     1780     4 .symtab
+       0        0     1780     4         <internal>:(.symtab)
        0        0       d6     1 .shstrtab
        0        0       d6     1         <internal>:(.shstrtab)
-       0        0       ba     1 .strtab
-       0        0       ba     1         <internal>:(.strtab)
+       0        0       d7     1 .strtab
+       0        0       d7     1         <internal>:(.strtab)

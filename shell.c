@@ -1,4 +1,5 @@
 #include "user.h"
+#include "libs/string.h"
 
 void main(void) {
     while (1) {

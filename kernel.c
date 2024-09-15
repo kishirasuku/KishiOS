@@ -1,5 +1,6 @@
 #include "kernel.h"
 #include "./sbicalls/sbicall.h"
+#include "libs/syscall.h"
 
 typedef unsigned char uint8_t;
 typedef unsigned int uint32_t;
